@@ -1,6 +1,4 @@
-﻿using ShopOnline.API.Specifications;
-
-namespace ShopOnline.API.IRepositories;
+﻿namespace ShopOnline.API.IRepositories;
 
 public interface IRepository<TEntity> where TEntity : class
 {
@@ -24,6 +22,11 @@ public interface IRepository<TEntity> where TEntity : class
     Task<IQueryable<TEntity>> RetriveAllWithSpecificationAsync
         (ISpecification<TEntity> specification,
         CancellationToken cancellationToken = default);
+
+    Task<TEntity> RetriveWithSpecificationAsync
+        (ISpecification<TEntity> specification,
+        CancellationToken cancellationToken = default);
+
     Task<bool> IsExistAsync(
         ISpecification<TEntity> specification = null,
         CancellationToken cancellationToken = default);

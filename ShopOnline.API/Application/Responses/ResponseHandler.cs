@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-namespace ShopOnline.API.Application.Responses;
+﻿namespace ShopOnline.API.Application.Responses;
 
 public class ResponseHandler : IResponseHandler
 {
@@ -39,7 +37,7 @@ public class ResponseHandler : IResponseHandler
 
     public static Response<TData> BadRequest<TData>(
         TData data = null,
-        dynamic meta = null,
+        object meta = null,
         string message = null,
         object errors = null) where TData : class => new(
             statusCode: HttpStatusCode.BadRequest,
@@ -51,7 +49,7 @@ public class ResponseHandler : IResponseHandler
 
     public static Response<TData> UnAuthorized<TData>(
         TData data = null,
-        dynamic meta = null,
+        object meta = null,
         string message = null,
         List<dynamic> errors = null) where TData : class =>
         new(

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
@@ -30,15 +30,36 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Features\CartItems\Commands\CartItemCaommandsValidators\" />
+    <Folder Include="Application\Features\CartItems\Commands\CartItemCommandsValidators\" />
     <Folder Include="Application\Features\CartItems\Commands\CartItemCommandsHandler\" />
     <Folder Include="Application\Features\CartItems\Commands\CartItemCommands\" />
     <Folder Include="Application\Features\CartItems\Mapper\" />
-    <Folder Include="Application\Features\CartItems\Queries\" />
-    <Folder Include="Application\Features\Carts\" />
-    <Folder Include="Application\Features\Categories\" />
-    <Folder Include="Application\Features\Products\" />
-    <Folder Include="Application\Features\Users\" />
+    <Folder Include="Application\Features\CartItems\Queries\CartItemQueriesHandler\" />
+    <Folder Include="Application\Features\CartItems\Queries\CartItemQueries\" />
+    <Folder Include="Application\Features\Carts\Commands\CartCommandsHandler\" />
+    <Folder Include="Application\Features\Carts\Commands\CartCommandsValidators\" />
+    <Folder Include="Application\Features\Carts\Commands\CartCommands\" />
+    <Folder Include="Application\Features\Carts\Mapper\" />
+    <Folder Include="Application\Features\Carts\Queries\CartQueriesHandler\" />
+    <Folder Include="Application\Features\Carts\Queries\CartQueriesValidators\" />
+    <Folder Include="Application\Features\Carts\Queries\CartQueries\" />
+    <Folder Include="Application\Features\Categories\Commands\CategoryCommandsHandler\" />
+    <Folder Include="Application\Features\Categories\Commands\CategoryCommandsValidators\" />
+    <Folder Include="Application\Features\Categories\Commands\CategoryCommands\" />
+    <Folder Include="Application\Features\Categories\Mapper\" />
+    <Folder Include="Application\Features\Categories\Queries\CategoryQueriesHandler\" />
+    <Folder Include="Application\Features\Categories\Queries\CategoryQueriesValidators\" />
+    <Folder Include="Application\Features\Categories\Queries\CategoryQueries\" />
+    <Folder Include="Application\Features\Products\Commands\ProductCommandsValidators\" />
+    <Folder Include="Application\Features\Products\Commands\ProductCommandsHandler\" />
+    <Folder Include="Application\Features\Products\Commands\ProductCommands\" />
+    <Folder Include="Application\Features\Users\Commands\UserCommandsHandler\" />
+    <Folder Include="Application\Features\Users\Commands\UserCommandsValidators\" />
+    <Folder Include="Application\Features\Users\Commands\UserCommands\" />
+    <Folder Include="Application\Features\Users\Mapper\" />
+    <Folder Include="Application\Features\Users\Queries\UserQueriesHandler\" />
+    <Folder Include="Application\Features\Users\Queries\UserQueriesValidators\" />
+    <Folder Include="Application\Features\Users\Queries\UserQueries\" />
     <Folder Include="Repositories\Caching\" />
   </ItemGroup>
 

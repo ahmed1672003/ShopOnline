@@ -53,7 +53,13 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     }
 
     #endregion
+
     #region Queries
+    public async Task<TEntity> RetriveWithSpecificationAsync(
+        ISpecification<TEntity> specification,
+        CancellationToken cancellationToken = default) =>
+        await SpecificationEvaluator.GetQuery(_entities, specification).FirstOrDefaultAsync();
+
     public Task<IQueryable<TEntity>> RetriveAllAsync(
                                      CancellationToken cancellationToken = default) =>
                 Task.FromResult(_entities.AsQueryable());
@@ -65,8 +71,9 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 
         return Task.FromResult(query);
     }
-
-    public async Task<bool> IsExistAsync(ISpecification<TEntity> specification = null, CancellationToken cancellationToken = default)
+    public async Task<bool> IsExistAsync(
+        ISpecification<TEntity> specification = null,
+        CancellationToken cancellationToken = default)
     {
         if (specification.Criteria is not null)
             return await _entities.AnyAsync();
