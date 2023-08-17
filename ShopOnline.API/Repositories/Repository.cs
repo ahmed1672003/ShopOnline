@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using ShopOnline.API.Data;
-using ShopOnline.API.IRepositories;
-using ShopOnline.API.Specifications;
+﻿using ShopOnline.API.Specifications;
 namespace ShopOnline.API.Repositories;
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
@@ -68,6 +64,14 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         var query = SpecificationEvaluator.GetQuery(_entities, specification);
 
         return Task.FromResult(query);
+    }
+
+    public async Task<bool> IsExistAsync(ISpecification<TEntity> specification = null, CancellationToken cancellationToken = default)
+    {
+        if (specification.Criteria is not null)
+            return await _entities.AnyAsync();
+        else
+            return await _entities.AnyAsync(specification.Criteria!, cancellationToken);
     }
     #endregion
 }

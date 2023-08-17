@@ -24,4 +24,7 @@ public interface IRepository<TEntity> where TEntity : class
     Task<IQueryable<TEntity>> RetriveAllWithSpecificationAsync
         (ISpecification<TEntity> specification,
         CancellationToken cancellationToken = default);
+    Task<bool> IsExistAsync(
+        ISpecification<TEntity> specification = null,
+        CancellationToken cancellationToken = default);
 }

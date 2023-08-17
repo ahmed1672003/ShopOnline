@@ -25,7 +25,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\NewFolder\" />
+    <ProjectReference Include="..\ShopOnline.Models\ShopOnline.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\Features\CartItem\" />
+    <Folder Include="Application\Features\Carts\" />
+    <Folder Include="Application\Features\Categories\" />
+    <Folder Include="Application\Features\Products\" />
+    <Folder Include="Application\Features\Users\" />
   </ItemGroup>
 
 </Project>
