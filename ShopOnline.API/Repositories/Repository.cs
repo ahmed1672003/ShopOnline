@@ -14,33 +14,61 @@ public class Repository<TEntity> : IRepository<TEntity>> where TEntity : class
         _context = context;
         _entities = _context.Set<TEntity>();
     }
+
+    #region Commands
     public async Task CreateAsync
-        (TEntity entity,
-        CancellationToken cancellationToken = default) =>
-        await _entities.AddAsync(entity, cancellationToken);
+                      (TEntity entity,
+                      CancellationToken cancellationToken = default) =>
+   await _entities.AddAsync(entity, cancellationToken);
+    public Task UpdateAsync
+                (TEntity entity,
+                CancellationToken cancellationToken = default) =>
+        Task.FromResult(_entities.Update(entity));
 
     public Task DeleteAsync
-        (TEntity entity,
-        CancellationToken cancellationToken = default) =>
+                (TEntity entity,
+                CancellationToken cancellationToken = default) =>
         Task.FromResult(_entities.Remove(entity));
 
     public async Task<int> ExecuteDeleteAsync
-        (ISpecification<TEntity> specification,
-        CancellationToken cancellationToken = default) =>
+                           (ISpecification<TEntity> specification,
+                           CancellationToken cancellationToken = default) =>
         specification.Criteria is null ?
         await _entities.ExecuteDeleteAsync(cancellationToken) :
         await _entities.Where(specification.Criteria).ExecuteDeleteAsync(cancellationToken);
 
-    public Task ExecuteUpdateAsync
-        (ISpecification<TEntity> specification,
-        CancellationToken cancellationToken = default)
+    public async Task<int> ExecuteUpdateAsync
+                           (ISpecification<TEntity> specification,
+                           CancellationToken cancellationToken = default)
     {
+        if (specification.Criteria is null)
+            return await _entities.ExecuteUpdateAsync(entity =>
+             entity.SetProperty(
+                 specification.ExecuteUpdateRequirments.PropertyExpression,
+                 specification.ExecuteUpdateRequirments.ValueExpression),
+                 cancellationToken);
+        else
+            return await _entities
+                   .Where(specification.Criteria)
+                   .ExecuteUpdateAsync(entity =>
+             entity.SetProperty(
+                 specification.ExecuteUpdateRequirments.PropertyExpression,
+                 specification.ExecuteUpdateRequirments.ValueExpression),
+                 cancellationToken);
+    }
 
-    }
-    public Task UpdateAsync
-        (TEntity entity,
-        CancellationToken cancellationToken = default)
+    #endregion
+    #region Queries
+    public Task<IQueryable<TEntity>> RetriveAllAsync(
+                                     CancellationToken cancellationToken = default) =>
+                Task.FromResult(_entities.AsQueryable());
+    public Task<IQueryable<TEntity>> RetriveAllWithSpecificationAsync
+                                     (ISpecification<TEntity> specification,
+                                      CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException();
+        var query = SpecificationEvaluator.GetQuery(_entities, specification);
+
+        return Task.FromResult(query);
     }
+    #endregion
 }

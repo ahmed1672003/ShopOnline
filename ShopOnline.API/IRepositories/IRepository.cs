@@ -16,7 +16,12 @@ public interface IRepository<TEntity> where TEntity : class
     Task<int> ExecuteUpdateAsync
         (ISpecification<TEntity> specification,
         CancellationToken cancellationToken = default);
-    Task ExecuteDeleteAsync
+    Task<int> ExecuteDeleteAsync
+        (ISpecification<TEntity> specification,
+        CancellationToken cancellationToken = default);
+    Task<IQueryable<TEntity>> RetriveAllAsync(
+        CancellationToken cancellationToken = default);
+    Task<IQueryable<TEntity>> RetriveAllWithSpecificationAsync
         (ISpecification<TEntity> specification,
         CancellationToken cancellationToken = default);
 }

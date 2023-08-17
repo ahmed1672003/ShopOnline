@@ -9,7 +9,6 @@ public class ShopOnlineDbContext : DbContext, IShopOnlineDbContext
     public ShopOnlineDbContext(DbContextOptions<ShopOnlineDbContext> options) : base(options)
     {
     }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);

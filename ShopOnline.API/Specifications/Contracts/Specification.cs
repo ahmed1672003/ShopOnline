@@ -8,17 +8,22 @@ public class Specification<TEntity> : ISpecification<TEntity> where TEntity : cl
     public List<Expression<Func<TEntity, object>>> IncludesExpression { get; } = new();
     public Expression<Func<TEntity, object>>? OrderByExpression { get; private set; }
     public Expression<Func<TEntity, object>>? OrderByDescendingExpression { get; private set; }
-    public (Func<TEntity, object> property, Expression<Func<TEntity, object>> propertyExpression)? ExecuteUpdateRequirments { get; private set; }
 
+    public (Func<TEntity, object> PropertyExpression,
+        Expression<Func<TEntity, object>> ValueExpression)
+        ExecuteUpdateRequirments
+    { get; private set; }
     protected void AddInclude
-        (Expression<Func<TEntity, object>> includeExpression) => IncludesExpression.Add(includeExpression);
+        (Expression<Func<TEntity, object>> includeExpression) =>
+        IncludesExpression.Add(includeExpression);
     protected void AddOrderBy
-        (Expression<Func<TEntity, object>> orderByExpression) => OrderByExpression = orderByExpression;
+        (Expression<Func<TEntity, object>> orderByExpression) =>
+        OrderByExpression = orderByExpression;
     protected void AddOrderByDescending(
-        Expression<Func<TEntity, object>> orderByDescendingExpression) => OrderByDescendingExpression = orderByDescendingExpression;
+        Expression<Func<TEntity, object>> orderByDescendingExpression) =>
+        OrderByDescendingExpression = orderByDescendingExpression;
     protected void AddExecuteUpdate
         ((Func<TEntity, object> property,
         Expression<Func<TEntity, object>> propertyExpression) executeUpdateRequirments) =>
         ExecuteUpdateRequirments = executeUpdateRequirments;
-
 }
