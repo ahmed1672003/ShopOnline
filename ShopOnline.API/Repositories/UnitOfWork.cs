@@ -36,7 +36,7 @@ public class UnitOfWork : IUnitOfWork
     public async Task CommitTransactionAsync(CancellationToken cancellationToken = default) =>
     await Context.Database.CommitTransactionAsync(cancellationToken);
 
-    public async ValueTask DisposeAsync(CancellationToken cancellationToken = default) =>
+    public async ValueTask DisposeAsync() =>
         await Context.DisposeAsync();
 
     public async Task RollbackTransactionAsync(CancellationToken cancellationToken = default) =>
