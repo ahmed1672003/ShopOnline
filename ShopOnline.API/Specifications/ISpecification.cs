@@ -9,5 +9,5 @@ public interface ISpecification<TEntity> where TEntity : class
     Expression<Func<TEntity, object>>? OrderByExpression { get; }
     Expression<Func<TEntity, object>>? OrderByDescendingExpression { get; }
 
-    (Func<TEntity, object> property, Expression<Func<TEntity, object>> propertyExpression) ExecuteUpdateRequirments { get; }
+    (Func<TEntity, object> property, Expression<Func<TEntity, object>> propertyExpression)? ExecuteUpdateRequirments { get; }
 }
