@@ -21,6 +21,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Scrutor" Version="4.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
@@ -34,6 +35,7 @@
     <Folder Include="Application\Features\Categories\" />
     <Folder Include="Application\Features\Products\" />
     <Folder Include="Application\Features\Users\" />
+    <Folder Include="Repositories\Caching\" />
   </ItemGroup>
 
 </Project>

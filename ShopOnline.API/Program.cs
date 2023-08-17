@@ -1,4 +1,6 @@
 
+using System.Text.Json.Serialization;
+
 using MediatR;
 
 using ShopOnline.API.Application.Bahaviors;
@@ -7,8 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 #region Register Services
-builder.Services.AddDbContext<ShopOnlineDbContext>(o =>
-o.UseSqlServer(builder.Configuration.GetConnectionString("ShopOnlineConnection")));
+builder.Services.AddDbContext<ShopOnlineDbContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("ShopOnlineConnection")));
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IShopOnlineDbContext, ShopOnlineDbContext>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
@@ -23,7 +24,13 @@ builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavi
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 #endregion
 
-builder.Services.AddControllers();
+builder.Services.AddMemoryCache();
+builder.Services
+           .AddControllers()
+           .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
+builder.Services.AddCors(options => options.AddPolicy("OnlineShop", ));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
