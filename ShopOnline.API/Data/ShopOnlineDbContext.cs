@@ -6,8 +6,10 @@ namespace ShopOnline.API.Data;
 
 public class ShopOnlineDbContext : DbContext, IShopOnlineDbContext
 {
+
     public ShopOnlineDbContext(DbContextOptions<ShopOnlineDbContext> options) : base(options)
     {
+        this.DisposeAsync();
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -4,26 +4,51 @@ namespace ShopOnline.API.Specifications.Contracts;
 
 public class Specification<TEntity> : ISpecification<TEntity> where TEntity : class
 {
+    public Specification(Expression<Func<TEntity, bool>> criteria) =>
+        Criteria = criteria;
+    public Specification() { }
+
     public Expression<Func<TEntity, bool>>? Criteria { get; }
+
+    public Expression<Func<TEntity, object>>? GroupByExpression { get; private set; }
+
     public List<Expression<Func<TEntity, object>>> IncludesExpression { get; } = new();
+
+    public List<string> IncludesString { get; } = new();
+
     public Expression<Func<TEntity, object>>? OrderByExpression { get; private set; }
+
     public Expression<Func<TEntity, object>>? OrderByDescendingExpression { get; private set; }
 
-    public (Func<TEntity, object> PropertyExpression,
-        Expression<Func<TEntity, object>> ValueExpression)
-        ExecuteUpdateRequirments
-    { get; private set; }
-    protected void AddInclude
-        (Expression<Func<TEntity, object>> includeExpression) =>
+    public (Func<TEntity, object> PropertyExpression, Expression<Func<TEntity, object>> ValueExpression) ExecuteUpdateRequirments { get; private set; }
+
+    public bool IsPagingEnabled { get; private set; }
+
+    public (int? pageNumber, int? pageSize) PaginationRequirments { get; private set; }
+
+    protected virtual void AddIncludeExpression(
+                           Expression<Func<TEntity, object>> includeExpression) =>
         IncludesExpression.Add(includeExpression);
-    protected void AddOrderBy
-        (Expression<Func<TEntity, object>> orderByExpression) =>
+    protected virtual void AddIncludeString(
+                           string includesString) =>
+        IncludesString.Add(includesString);
+    protected virtual void AddOrderBy(
+                           Expression<Func<TEntity, object>> orderByExpression) =>
         OrderByExpression = orderByExpression;
-    protected void AddOrderByDescending(
-        Expression<Func<TEntity, object>> orderByDescendingExpression) =>
+    protected virtual void AddOrderByDescending(
+                           Expression<Func<TEntity, object>> orderByDescendingExpression) =>
         OrderByDescendingExpression = orderByDescendingExpression;
-    protected void AddExecuteUpdate
-        ((Func<TEntity, object> property,
-        Expression<Func<TEntity, object>> propertyExpression) executeUpdateRequirments) =>
+    protected virtual void AddExecuteUpdate(
+                           (Func<TEntity, object> property,
+                           Expression<Func<TEntity, object>> propertyExpression) executeUpdateRequirments) =>
         ExecuteUpdateRequirments = executeUpdateRequirments;
+    protected virtual void ApplyPaging(
+                                      (int? pageNumber, int? pageSize) paginationRequirments)
+    {
+        PaginationRequirments = paginationRequirments;
+        IsPagingEnabled = true;
+    }
+    protected virtual void ApplyGroupBy(
+                           Expression<Func<TEntity, object>> groupByExpression) =>
+        GroupByExpression = groupByExpression;
 }

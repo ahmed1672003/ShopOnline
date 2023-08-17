@@ -1,5 +1,12 @@
-﻿namespace ShopOnline.API.Repositories;
+﻿using ShopOnline.API.Data;
+using ShopOnline.API.Entities;
+using ShopOnline.API.IRepositories;
 
-public class UserRepository
+namespace ShopOnline.API.Repositories;
+
+public class UserRepository : Repository<User>, IUserRepository
 {
+    public UserRepository(IShopOnlineDbContext context) : base(context)
+    {
+    }
 }

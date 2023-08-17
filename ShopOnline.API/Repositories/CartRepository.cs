@@ -1,5 +1,12 @@
-﻿namespace ShopOnline.API.Repositories;
+﻿using ShopOnline.API.Data;
+using ShopOnline.API.Entities;
+using ShopOnline.API.IRepositories;
 
-public class CartRepository
+namespace ShopOnline.API.Repositories;
+
+public class CartRepository : Repository<Cart>, ICartRepository
 {
+    public CartRepository(IShopOnlineDbContext context) : base(context)
+    {
+    }
 }

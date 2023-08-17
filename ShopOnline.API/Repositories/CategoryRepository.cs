@@ -1,5 +1,12 @@
-﻿namespace ShopOnline.API.Repositories;
+﻿using ShopOnline.API.Data;
+using ShopOnline.API.Entities;
+using ShopOnline.API.IRepositories;
 
-public class CategoryRepository
+namespace ShopOnline.API.Repositories;
+
+public class CategoryRepository : Repository<Category>, ICategoryRepository
 {
+    public CategoryRepository(IShopOnlineDbContext context) : base(context)
+    {
+    }
 }

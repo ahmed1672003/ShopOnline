@@ -1,5 +1,7 @@
-﻿namespace ShopOnline.API.IRepositories;
+﻿using ShopOnline.API.Entities;
 
-public interface IUserRepository
+namespace ShopOnline.API.IRepositories;
+
+public interface IUserRepository : IRepository<User>
 {
 }

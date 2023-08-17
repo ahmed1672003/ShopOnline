@@ -1,5 +1,7 @@
-﻿namespace ShopOnline.API.IRepositories;
+﻿using ShopOnline.API.Entities;
 
-public interface ICategoryRepository
+namespace ShopOnline.API.IRepositories;
+
+public interface ICategoryRepository : IRepository<Category>
 {
 }

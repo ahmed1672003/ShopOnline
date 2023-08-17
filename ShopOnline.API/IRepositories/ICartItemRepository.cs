@@ -1,5 +1,7 @@
-﻿namespace ShopOnline.API.IRepositories;
+﻿using ShopOnline.API.Entities;
 
-public interface ICartItemRepository
+namespace ShopOnline.API.IRepositories;
+
+public interface ICartItemRepository : IRepository<CartItem>
 {
 }
