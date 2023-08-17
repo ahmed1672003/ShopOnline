@@ -5,7 +5,7 @@ using ShopOnline.API.IRepositories;
 using ShopOnline.API.Specifications;
 
 namespace ShopOnline.API.Repositories;
-public class Repository<TEntity> : IRepository<TEntity>> where TEntity : class
+public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
     private readonly IShopOnlineDbContext _context;
     private readonly DbSet<TEntity> _entities;
