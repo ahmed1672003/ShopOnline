@@ -3,7 +3,6 @@
 using ShopOnline.API.Data;
 using ShopOnline.API.IRepositories;
 using ShopOnline.API.Specifications;
-
 namespace ShopOnline.API.Repositories;
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
