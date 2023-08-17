@@ -1,6 +1,5 @@
 ﻿
 
-using System.Text.Json;
 
 namespace ShopOnline.API.Application.MiddleWare;
 public class ErrorHandlerMiddleWare

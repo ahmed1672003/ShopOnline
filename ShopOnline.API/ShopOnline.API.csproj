@@ -30,7 +30,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Features\CartItem\" />
+    <Folder Include="Application\Features\CartItems\Commands\CartItemCaommandsValidators\" />
+    <Folder Include="Application\Features\CartItems\Commands\CartItemCommandsHandler\" />
+    <Folder Include="Application\Features\CartItems\Commands\CartItemCommands\" />
+    <Folder Include="Application\Features\CartItems\Mapper\" />
+    <Folder Include="Application\Features\CartItems\Queries\" />
     <Folder Include="Application\Features\Carts\" />
     <Folder Include="Application\Features\Categories\" />
     <Folder Include="Application\Features\Products\" />

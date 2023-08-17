@@ -1,9 +1,4 @@
 
-using System.Text.Json.Serialization;
-
-using MediatR;
-
-using ShopOnline.API.Application.Bahaviors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,13 +13,15 @@ builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ICartItemRepository, CartItemRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<IResponseHandler, ResponseHandler>();
+builder.Services.AddScoped<IResponseHandler, PaginationResponseHandler>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 #endregion
 
-builder.Services.AddMemoryCache();
+//builder.Services.AddMemoryCache();
 builder.Services
            .AddControllers()
            .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
