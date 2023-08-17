@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace ShopOnline.API.Specifications;
+﻿namespace ShopOnline.API.Specifications;
 public class SpecificationEvaluator
 {
-    public static IQueryable<TEntity> GetQuery<TEntity>
-        (IQueryable<TEntity> inputQueryable,
+    public static IQueryable<TEntity> GetQuery<TEntity>(
+        IQueryable<TEntity> inputQueryable,
         ISpecification<TEntity> specification) where TEntity : class
     {
         IQueryable<TEntity> query = inputQueryable;
