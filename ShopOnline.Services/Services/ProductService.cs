@@ -32,4 +32,28 @@ public class ProductService : IProductService
             return Enumerable.Empty<ProductDto>();
         }
     }
+
+    public async Task<ProductDto> RetrieveProductById(int id)
+    {
+        var response = new Response<ProductDto>();
+
+        try
+        {
+            var result = await _httpClient.GetAsync($"{Urls.Product.RetrieveProductByIdUrl}{id}");
+
+            if (!result.IsSuccessStatusCode)
+                return default(ProductDto);
+
+            response = await result.Content.ReadFromJsonAsync<Response<ProductDto>>();
+
+            if (response.Data is not null)
+                return response.Data;
+
+            return default(ProductDto);
+        }
+        catch
+        {
+            return default(ProductDto);
+        }
+    }
 }
