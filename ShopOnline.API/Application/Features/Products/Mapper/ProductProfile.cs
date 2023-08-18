@@ -8,6 +8,8 @@ public class ProductProfile : Profile
     }
     void Mapp()
     {
-        CreateMap<Product, ProductDto>().ReverseMap();
+        CreateMap<Product, ProductDto>()
+            .ForMember(dist => dist.CategoryName, cfg =>
+            cfg.MapFrom(src => src.Name));
     }
 }

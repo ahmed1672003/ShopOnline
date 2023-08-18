@@ -16,6 +16,6 @@ public class Product
     public int CategoryId { get; set; }
 
     [ForeignKey(nameof(CategoryId))]
-    public Category ProductCategory { get; set; }
-    public IEnumerable<CartItem> CartItems { get; set; } = Enumerable.Empty<CartItem>();
+    public Category Category { get; set; }
+    public IEnumerable<CartItem> CartItems { get; set; } = new HashSet<CartItem>();
 }

@@ -12,5 +12,5 @@ public class Cart
 
     [ForeignKey(nameof(UserId))]
     public User User { get; set; }
-    public IEnumerable<CartItem> CartItems { get; set; } = Enumerable.Empty<CartItem>();
+    public IEnumerable<CartItem> CartItems { get; set; } = new HashSet<CartItem>();
 }

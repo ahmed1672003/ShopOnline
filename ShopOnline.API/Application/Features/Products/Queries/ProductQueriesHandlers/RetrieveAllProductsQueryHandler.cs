@@ -1,4 +1,5 @@
 ﻿using ShopOnline.API.Application.Features.Products.Queries.ProductQueries;
+using ShopOnline.API.Specifications.Products;
 
 namespace ShopOnline.API.Application.Features.Products.Queries.ProductQueriesHandlers;
 
@@ -28,7 +29,9 @@ public sealed class RetrieveAllProductsQueryHandler :
         if (request is null)
             return ResponseHandler.BadRequest<IEnumerable<ProductDto>>();
 
-        var models = await _context.Products.RetriveAllAsync();
+        var allProductsSpecification = new AllProductsSpecification<Product>();
+
+        var models = await _context.Products.RetriveAllWithSpecificationAsync(allProductsSpecification);
 
         if (models is null)
             return ResponseHandler.NotFound<IEnumerable<ProductDto>>();

@@ -1,7 +1,10 @@
 ﻿using ShopOnline.API.Specifications.Contracts;
 
 namespace ShopOnline.API.Specifications.Products;
-public class ProductByIdSpecification<TEntity> : Specification<TEntity> where TEntity : Product
+public sealed class ProductByIdSpecification<TEntity> : Specification<TEntity> where TEntity : Product
 {
-    public ProductByIdSpecification(int id) : base(s => s.Id == id) { }
+    public ProductByIdSpecification(int id) : base(p => p.Id == id)
+    {
+        AddIncludeExpression(p => p.Category);
+    }
 }

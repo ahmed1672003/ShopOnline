@@ -46,7 +46,6 @@
     <Folder Include="Application\Features\Categories\Commands\CategoryCommandsHandler\" />
     <Folder Include="Application\Features\Categories\Commands\CategoryCommandsValidators\" />
     <Folder Include="Application\Features\Categories\Commands\CategoryCommands\" />
-    <Folder Include="Application\Features\Categories\Mapper\" />
     <Folder Include="Application\Features\Categories\Queries\CategoryQueriesHandler\" />
     <Folder Include="Application\Features\Categories\Queries\CategoryQueriesValidators\" />
     <Folder Include="Application\Features\Categories\Queries\CategoryQueries\" />

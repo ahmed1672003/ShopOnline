@@ -10,5 +10,5 @@ public class Category
     public int Id { get; set; }
     public string Name { get; set; }
     public string IconCSS { get; set; }
-    public IEnumerable<Product> Products { get; set; } = Enumerable.Empty<Product>();
+    public IEnumerable<Product> Products { get; set; } = new HashSet<Product>();
 }

@@ -15,4 +15,6 @@ public class ProductsController : ShopOnlineController
         var respone = await Mediator.Send(new RetrieveAllProductsQuery());
         return NewResult(respone);
     }
+
+
 }
