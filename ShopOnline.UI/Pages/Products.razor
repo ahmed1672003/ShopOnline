@@ -19,7 +19,7 @@ else
         {
             <h4 class="m-4">@GetCategoryName(productsOrderdByCategoryGroup)</h4>
             <div class="row m-3">
-                <DisplayProducts Products="productsOrderdByCategoryGroup"></DisplayProducts>
+                <DisplayProducts Products="productsOrderdByCategoryGroup.Take(4)"></DisplayProducts>
             </div>
             <hr class="mt-4" />
         }

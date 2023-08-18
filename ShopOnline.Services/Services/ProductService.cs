@@ -20,7 +20,12 @@ public class ProductService : IProductService
         var response = new Response<IEnumerable<ProductDto>>();
         try
         {
-            response = await _httpClient.GetFromJsonAsync<Response<IEnumerable<ProductDto>>>(Urls.Product.RetrieveAllProductsUrl);
+            var result = await _httpClient.GetAsync(Urls.Product.RetrieveAllProductsUrl);
+
+            if (!result.IsSuccessStatusCode)
+                return new HashSet<ProductDto>();
+
+            response = await result.Content.ReadFromJsonAsync<Response<IEnumerable<ProductDto>>>();
 
             if (response.Data is not null)
                 return response.Data;
@@ -33,27 +38,24 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<ProductDto> RetrieveProductById(int id)
+    public async Task<ProductDto> RetrieveProductByIdAsync(int id)
     {
         var response = new Response<ProductDto>();
 
-        try
+        var result = await _httpClient.GetAsync($"{Urls.Product.RetrieveProductByIdUrl}{id}");
+
+        if (!result.IsSuccessStatusCode)
         {
-            var result = await _httpClient.GetAsync($"{Urls.Product.RetrieveProductByIdUrl}{id}");
-
-            if (!result.IsSuccessStatusCode)
-                return default(ProductDto);
-
-            response = await result.Content.ReadFromJsonAsync<Response<ProductDto>>();
-
-            if (response.Data is not null)
-                return response.Data;
-
-            return default(ProductDto);
+            var message = await result.Content.ReadAsStringAsync();
+            throw new Exception(message);
         }
-        catch
-        {
-            return default(ProductDto);
-        }
+
+        response = await result.Content.ReadFromJsonAsync<Response<ProductDto>>();
+
+        if (response.Data is not null)
+            return response.Data;
+
+        return default(ProductDto);
+
     }
 }

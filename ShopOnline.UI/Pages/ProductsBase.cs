@@ -8,12 +8,12 @@ namespace ShopOnline.UI.Pages;
 public class ProductsBase : ComponentBase
 {
     [Inject]
-    public IUnitOfServices Context { get; set; }
+    public IUnitOfServices Serveices { get; set; }
     public IEnumerable<ProductDto> Products { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        Products = await Context.Products.RetrieveAllProductsAsync();
+        Products = await Serveices.Products.RetrieveAllProductsAsync();
     }
 
     protected IOrderedEnumerable<IGrouping<int, ProductDto>> GetProductsOrderdByCategoryGroups()
