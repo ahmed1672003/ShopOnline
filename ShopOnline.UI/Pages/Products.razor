@@ -1,0 +1,30 @@
+﻿@page "/"
+@inherits ProductsBase
+
+@if (Products is null)
+{
+    <h1 class="alert alert-warning">Loading Products . . . . </h1>
+    <div class="loader m-auto"></div>
+}
+else if (Products.Count() == 0)
+{
+    <h1 class="alert alert-warning">no products executed</h1>
+}
+else
+{
+    if (Products.Count() > 0)
+    {
+        <h1 class="m-4">Products</h1>
+        foreach (var productsOrderdByCategoryGroup in GetProductsOrderdByCategoryGroups())
+        {
+            <h4 class="m-4">@GetCategoryName(productsOrderdByCategoryGroup)</h4>
+            <div class="row m-3">
+                <DisplayProducts Products="productsOrderdByCategoryGroup"></DisplayProducts>
+            </div>
+            <hr class="mt-4" />
+        }
+    }
+}
+@code{
+
+}

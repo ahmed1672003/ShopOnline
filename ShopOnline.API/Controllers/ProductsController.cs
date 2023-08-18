@@ -16,5 +16,10 @@ public class ProductsController : ShopOnlineController
         return NewResult(respone);
     }
 
-
+    [HttpGet, ActionName("get-product-by-id")]
+    public async Task<IActionResult> RetrieveProductById(int? id)
+    {
+        var response = await Mediator.Send(new RetrieveProductByIdQuery(id));
+        return NewResult(response);
+    }
 }
