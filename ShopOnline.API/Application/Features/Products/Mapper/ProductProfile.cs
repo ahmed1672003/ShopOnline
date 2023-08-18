@@ -8,7 +8,6 @@ public class ProductProfile : Profile
     }
     void Mapp()
     {
-        CreateMap<Product, ProductDto>();
-        CreateMap<IQueryable<Product>, IEnumerable<ProductDto>>();
+        CreateMap<Product, ProductDto>().ReverseMap();
     }
 }

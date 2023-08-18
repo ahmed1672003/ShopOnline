@@ -29,7 +29,7 @@ public class ResponseHandler : IResponseHandler
         string message = null,
         object errors = null) where TData : class => new(
             statusCode: HttpStatusCode.NotFound,
-            isSucceeded: true,
+            isSucceeded: false,
             message: message,
             data: data,
             errors: errors,

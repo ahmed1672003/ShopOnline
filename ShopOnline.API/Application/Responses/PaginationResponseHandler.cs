@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-
-using ShopOnline.Models.ResponseModels;
+﻿using ShopOnline.Models.ResponseModels;
 
 namespace ShopOnline.API.Application.Responses;
 
@@ -42,7 +40,7 @@ public class PaginationResponseHandler : IResponseHandler
       int pageSize = 10
        ) where TData : class => new(
           statusCode: HttpStatusCode.OK,
-          isSucceeded: true,
+          isSucceeded: false,
           message: message,
           data: data,
           errors: errors,

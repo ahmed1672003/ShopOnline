@@ -3,13 +3,11 @@
 using ShopOnline.API.Application.Features.Products.Queries.ProductQueries;
 
 namespace ShopOnline.API.Controllers;
-[Route("api/[controller]/[action]")]
+[Route("api/v1/[controller]/[action]")]
 [ApiController]
 public class ProductsController : ShopOnlineController
 {
-    public ProductsController(IMediator mediator) : base(mediator)
-    {
-    }
+    public ProductsController(IMediator mediator) : base(mediator) { }
 
     [HttpGet, ActionName("get-all-products")]
     public async Task<IActionResult> RetrieveAllProducts()
