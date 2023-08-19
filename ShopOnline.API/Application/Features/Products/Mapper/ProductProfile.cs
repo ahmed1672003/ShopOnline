@@ -1,6 +1,6 @@
 ﻿namespace ShopOnline.API.Application.Features.Products.Mapper;
 
-public class ProductProfile : Profile
+public sealed class ProductProfile : Profile
 {
     public ProductProfile()
     {

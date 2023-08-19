@@ -1,3 +1,4 @@
+using Microsoft.Net.Http.Headers;
 
 using ShopOnline.API.Specifications.Contracts;
 
@@ -28,13 +29,6 @@ builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services
            .AddControllers()
            .AddJsonOptions(options => options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-builder.Services.
-    AddCors(options => options.AddPolicy("OnlineShop", cbp =>
-{
-    cbp.AllowAnyHeader();
-    cbp.AllowAnyMethod();
-    cbp.AllowAnyOrigin();
-}));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -50,7 +44,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseCors("OnlineShop");
+app.UseCors(policy =>
+{
+    policy.WithOrigins("https://localhost:7145", "http://localhost:7145");
+    policy.AllowAnyMethod();
+    policy.WithHeaders(HeaderNames.ContentType, "application/json");
+});
 app.UseMiddleware<ErrorHandlerMiddleWare>();
 
 app.UseAuthorization();

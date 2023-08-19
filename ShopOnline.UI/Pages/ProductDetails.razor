@@ -4,7 +4,10 @@
 @if (Product is null && ErrorMessage is null)
 {
     <h3 class="alert alert-warning">Loading Product . . . . </h3>
-    <div class="loader m-auto"></div>
+    @*<div class="loader m-auto"></div>*@
+    <LoaderCircle></LoaderCircle>
+    @*<DisplaySpinner/>*@
+
 }
 else if (ErrorMessage is not null)
 {

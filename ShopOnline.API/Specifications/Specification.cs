@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
+using ShopOnline.API.Specifications.Contracts;
 
-namespace ShopOnline.API.Specifications.Contracts;
+namespace ShopOnline.API.Specifications;
 
 public class Specification<TEntity> : ISpecification<TEntity> where TEntity : class
 {
@@ -8,17 +9,17 @@ public class Specification<TEntity> : ISpecification<TEntity> where TEntity : cl
         Criteria = criteria;
     public Specification() { }
 
-    public Expression<Func<TEntity, bool>>? Criteria { get; }
+    public Expression<Func<TEntity, bool>> Criteria { get; }
 
-    public Expression<Func<TEntity, object>>? GroupByExpression { get; private set; }
+    public Expression<Func<TEntity, object>> GroupByExpression { get; private set; }
 
     public List<Expression<Func<TEntity, object>>> IncludesExpression { get; } = new();
 
     public List<string> IncludesString { get; } = new();
 
-    public Expression<Func<TEntity, object>>? OrderByExpression { get; private set; }
+    public Expression<Func<TEntity, object>> OrderByExpression { get; private set; }
 
-    public Expression<Func<TEntity, object>>? OrderByDescendingExpression { get; private set; }
+    public Expression<Func<TEntity, object>> OrderByDescendingExpression { get; private set; }
 
     public (Func<TEntity, object> PropertyExpression, Expression<Func<TEntity, object>> ValueExpression) ExecuteUpdateRequirments { get; private set; }
 

@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage;
 
-using ShopOnline.API.Data;
-using ShopOnline.API.IRepositories;
-
 namespace ShopOnline.API.Repositories;
 
 public class UnitOfWork : IUnitOfWork
@@ -30,7 +27,7 @@ public class UnitOfWork : IUnitOfWork
     public IUserRepository Users { get; private set; }
     public IShopOnlineDbContext Context { get; private set; }
 
-    public async Task<IDbContextTransaction> BeginTransaction(CancellationToken cancellationToken = default) =>
+    public async Task<IDbContextTransaction> BeginTransactionAsync(CancellationToken cancellationToken = default) =>
         await Context.Database.BeginTransactionAsync(cancellationToken);
 
     public async Task CommitTransactionAsync(CancellationToken cancellationToken = default) =>

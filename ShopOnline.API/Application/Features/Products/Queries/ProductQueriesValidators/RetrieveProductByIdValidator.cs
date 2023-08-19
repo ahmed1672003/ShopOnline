@@ -2,7 +2,7 @@
 
 namespace ShopOnline.API.Application.Features.Products.Queries.ProductQueriesValidators;
 
-public class RetrieveProductByIdValidator : AbstractValidator<RetrieveProductByIdQuery>
+public sealed class RetrieveProductByIdValidator : AbstractValidator<RetrieveProductByIdQuery>
 {
     public RetrieveProductByIdValidator()
     {

@@ -4,7 +4,7 @@
 @if (Products is null)
 {
     <h1 class="alert alert-warning">Loading Products . . . . </h1>
-    <div class="loader m-auto"></div>
+    <LoaderCircle></LoaderCircle>
 }
 else if (Products.Count() == 0)
 {

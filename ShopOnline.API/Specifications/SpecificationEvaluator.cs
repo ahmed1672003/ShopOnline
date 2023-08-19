@@ -1,4 +1,6 @@
-﻿namespace ShopOnline.API.Specifications;
+﻿using ShopOnline.API.Specifications.Contracts;
+
+namespace ShopOnline.API.Specifications;
 public class SpecificationEvaluator
 {
     public static IQueryable<TEntity> GetQuery<TEntity>(

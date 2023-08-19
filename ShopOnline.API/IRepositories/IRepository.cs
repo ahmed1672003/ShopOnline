@@ -1,4 +1,6 @@
-﻿namespace ShopOnline.API.IRepositories;
+﻿using ShopOnline.API.Specifications.Contracts;
+
+namespace ShopOnline.API.IRepositories;
 
 public interface IRepository<TEntity> where TEntity : class
 {

@@ -1,4 +1,5 @@
-﻿using ShopOnline.API.Specifications;
+﻿using ShopOnline.API.Specifications.Contracts;
+
 namespace ShopOnline.API.Repositories;
 public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
@@ -75,7 +76,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         ISpecification<TEntity> specification = null,
         CancellationToken cancellationToken = default)
     {
-        if (specification.Criteria is not null)
+        if (specification.Criteria is null)
             return await _entities.AnyAsync();
         else
             return await _entities.AnyAsync(specification.Criteria!, cancellationToken);
