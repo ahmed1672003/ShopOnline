@@ -16,7 +16,6 @@ public sealed class RetrieveUserCartItemsQueryHandler :
         _context = context;
         _mapper = mapper;
     }
-
     public async Task<Response<IEnumerable<CartItemDto>>>
         Handle(RetrieveUserCartItemsQuery request, CancellationToken cancellationToken)
     {
@@ -27,14 +26,14 @@ public sealed class RetrieveUserCartItemsQueryHandler :
         var isUserExistSpecification =
                 new IsUserExistSpecification<User>(request.UserId.Value);
 
-        if (!await _context.Users.IsExistAsync(isUserExistSpecification))
+        if (!await _context.Users.IsExistAsync(isUserExistSpecification, cancellationToken))
             return ResponseHandler.NotFound<IEnumerable<CartItemDto>>();
 
         // check user is have cart
         var isUserHaveCartSpecification =
             new IsUserHaveCartSpecification<Cart>(request.UserId.Value);
 
-        if (!await _context.Carts.IsExistAsync(isUserHaveCartSpecification))
+        if (!await _context.Carts.IsExistAsync(isUserHaveCartSpecification, cancellationToken))
             return ResponseHandler.NotFound<IEnumerable<CartItemDto>>();
 
         //get user cart include his cart items 
@@ -42,7 +41,12 @@ public sealed class RetrieveUserCartItemsQueryHandler :
             new UserCartIncludedCartItems<Cart>(request.UserId.Value);
         try
         {
-            var cart = await _context.Carts.RetriveWithSpecificationAsync(userCartIncludedCartItems);
+            var cart = await _context.Carts.RetriveWithSpecificationAsync(userCartIncludedCartItems, cancellationToken);
+
+            // check cart contain cart items 
+            if (!cart.CartItems.Any())
+                return ResponseHandler.NotFound<IEnumerable<CartItemDto>>(message: "cart do not have items");
+
             var dtos = _mapper.Map<IEnumerable<CartItemDto>>(cart.CartItems);
             return ResponseHandler.Success(dtos);
         }
@@ -50,6 +54,5 @@ public sealed class RetrieveUserCartItemsQueryHandler :
         {
             return ResponseHandler.Conflict<IEnumerable<CartItemDto>>();
         }
-
     }
 }
