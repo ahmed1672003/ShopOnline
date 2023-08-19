@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using ShopOnline.API.Application.Features.CartItems.Commands.CartItemCommands;
+using ShopOnline.API.Application.Features.CartItems.Queries.CartItemQueries;
 using ShopOnline.Models.CartItem;
 
 namespace ShopOnline.API.Controllers;
@@ -21,4 +22,8 @@ public class CartItemsController : ShopOnlineController
     [HttpDelete, ActionName("delete-cart-item-bt-id")]
     public async Task<IActionResult> DeleteCartItemById(int? id) =>
         NewResult(await Mediator.Send(new DeleteCartItemCommand(id)));
+
+    [HttpGet, ActionName("get-user-cart-items")]
+    public async Task<IActionResult> RetrieveUserCartItems(int? userId) =>
+        NewResult(await Mediator.Send(new RetrieveUserCartItemsQuery(userId)));
 }

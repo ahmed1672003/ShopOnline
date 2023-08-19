@@ -27,8 +27,15 @@ public sealed class DeleteCartItemCommandHandler :
         var deleteCartItemSpecification =
             new DeleteCartItemSpecification<CartItem>(request.Id.Value);
 
-        var result = await _context.CartItems.ExecuteDeleteAsync(deleteCartItemSpecification);
+        try
+        {
+            var result = await _context.CartItems.ExecuteDeleteAsync(deleteCartItemSpecification);
+            return result == 1 ? ResponseHandler.Success<CartItemDto>() : ResponseHandler.Conflict<CartItemDto>();
 
-        return result == 1 ? ResponseHandler.Success<CartItemDto>() : ResponseHandler.Conflict<CartItemDto>();
+        }
+        catch
+        {
+            return ResponseHandler.Conflict<CartItemDto>();
+        }
     }
 }

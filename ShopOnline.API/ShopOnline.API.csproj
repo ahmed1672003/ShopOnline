@@ -30,8 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Features\CartItems\Queries\CartItemQueriesHandler\" />
-    <Folder Include="Application\Features\CartItems\Queries\CartItemQueries\" />
     <Folder Include="Application\Features\Carts\Commands\CartCommandsHandler\" />
     <Folder Include="Application\Features\Carts\Commands\CartCommandsValidators\" />
     <Folder Include="Application\Features\Carts\Commands\CartCommands\" />
