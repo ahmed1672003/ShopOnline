@@ -5,7 +5,7 @@ using ShopOnline.API.Application.Features.CartItems.Queries.CartItemQueries;
 using ShopOnline.Models.CartItem;
 
 namespace ShopOnline.API.Controllers;
-[Route("api/[controller]/[action]")]
+[Route("api/v1/[controller]/[action]")]
 [ApiController]
 public class CartItemsController : ShopOnlineController
 {

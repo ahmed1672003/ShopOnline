@@ -2,7 +2,8 @@
 
 public class CartItemByIdIncludedProductSpecificatoin<TEntity> : Specification<TEntity> where TEntity : CartItem
 {
-    public CartItemByIdIncludedProductSpecificatoin(int id) : base(ci => ci.Id == id)
+    public CartItemByIdIncludedProductSpecificatoin(int productId, int cartId)
+        : base(ci => ci.ProductId == productId && ci.CartId == cartId)
     {
         AddIncludeExpression(ci => ci.Product);
     }

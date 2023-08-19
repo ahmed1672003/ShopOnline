@@ -16,6 +16,7 @@ public sealed class RetrieveUserCartItemsQueryHandler :
         _context = context;
         _mapper = mapper;
     }
+
     public async Task<Response<IEnumerable<CartItemDto>>>
         Handle(RetrieveUserCartItemsQuery request, CancellationToken cancellationToken)
     {
@@ -39,6 +40,7 @@ public sealed class RetrieveUserCartItemsQueryHandler :
         //get user cart include his cart items 
         var userCartIncludedCartItems =
             new UserCartIncludedCartItems<Cart>(request.UserId.Value);
+
         try
         {
             var cart = await _context.Carts.RetriveWithSpecificationAsync(userCartIncludedCartItems, cancellationToken);

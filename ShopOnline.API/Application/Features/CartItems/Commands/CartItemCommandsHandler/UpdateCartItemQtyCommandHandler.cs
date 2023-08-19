@@ -30,11 +30,12 @@ public sealed class UpdateCartItemQtyCommandHandler :
             return ResponseHandler.NotFound<CartItemDto>();
 
         // get cart item
-        var cartItemByIdIncludedProductSpecificatoin =
-            new CartItemByIdIncludedProductSpecificatoin<CartItem>(request.Id.Value);
+        var updateCartItemQtySpecification =
+
+            new UpdateCartItemQtySpecification<CartItem>(request.Id.Value);
 
         // begin transactiom
-        var model = await _context.CartItems.RetriveWithSpecificationAsync(cartItemByIdIncludedProductSpecificatoin);
+        var model = await _context.CartItems.RetriveWithSpecificationAsync(updateCartItemQtySpecification);
         var transaction = await _context.BeginTransactionAsync(cancellationToken);
         try
         {

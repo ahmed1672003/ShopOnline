@@ -20,7 +20,7 @@ public class ProductService : IProductService
         var response = new Response<IEnumerable<ProductDto>>();
         try
         {
-            var result = await _httpClient.GetAsync(Urls.Product.RetrieveAllProductsUrl);
+            var result = await _httpClient.GetAsync(Urls.Products.RetrieveAllProductsUrl);
 
             if (!result.IsSuccessStatusCode)
                 return new HashSet<ProductDto>();
@@ -42,7 +42,7 @@ public class ProductService : IProductService
     {
         var response = new Response<ProductDto>();
 
-        var result = await _httpClient.GetAsync($"{Urls.Product.RetrieveProductByIdUrl}{id}");
+        var result = await _httpClient.GetAsync($"{Urls.Products.RetrieveProductByIdUrl}{id}");
 
         if (!result.IsSuccessStatusCode)
         {

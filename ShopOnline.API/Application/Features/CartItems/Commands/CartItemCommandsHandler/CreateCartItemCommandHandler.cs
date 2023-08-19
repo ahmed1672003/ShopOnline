@@ -35,7 +35,26 @@ public sealed class CreateCartItemCommandHandler :
         if (!await _context.Carts.IsExistAsync(isCartExistSpecification))
             return ResponseHandler.NotFound<CartItemDto>();
 
-        // mapp from dto to model
+        // check if cartitem is exist 
+        var isItemWithTheSameCartFoundedSpecification =
+             new IsItemWithTheSameCartFoundedSpecification<CartItem>(request.Dto.ProductId, request.Dto.CartId);
+
+        // if item founded => update Qty only
+        if (await _context.CartItems.IsExistAsync(isItemWithTheSameCartFoundedSpecification))
+        {
+            var cartItemByIdIncludedProductSpecificatoin = new
+             CartItemByIdIncludedProductSpecificatoin<CartItem>(request.Dto.ProductId, request.Dto.CartId);
+
+            var cartItem = await _context.CartItems.RetriveWithSpecificationAsync(cartItemByIdIncludedProductSpecificatoin);
+
+            cartItem.Qty = request.Dto.Qty;
+
+            await _context.SaveChangesAsync();
+            var dto = _mapper.Map<CartItemDto>(cartItem);
+            return ResponseHandler.Success(dto);
+        }
+
+        // map from dto to model
         var model = _mapper.Map<CartItem>(request.Dto);
 
         // begin transactiom
@@ -48,7 +67,7 @@ public sealed class CreateCartItemCommandHandler :
             await transaction.CommitAsync();
 
             var cartItemByIdIncludedProductSpecificatoin = new
-                 CartItemByIdIncludedProductSpecificatoin<CartItem>(request.Dto.ProductId);
+                 CartItemByIdIncludedProductSpecificatoin<CartItem>(request.Dto.ProductId, request.Dto.CartId);
 
             // get cart item included product data
             var cartItem = await _context.CartItems.RetriveWithSpecificationAsync(cartItemByIdIncludedProductSpecificatoin);
