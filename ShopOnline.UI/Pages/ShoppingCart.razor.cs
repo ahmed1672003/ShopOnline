@@ -9,7 +9,7 @@ public partial class ShoppingCart
     [Inject]
     public IUnitOfServices Services { get; set; }
 
-    public IEnumerable<CartItemDto> CartItems { get; set; }
+    public List<CartItemDto> CartItems { get; set; }
 
     //[Parameter]
     //public int UserId { get; set; }
@@ -52,7 +52,7 @@ public partial class ShoppingCart
     {
         var cartItemDto = GetCartItem(id);
 
-        CartItems.ToList().Remove(cartItemDto);
+        CartItems.Remove(cartItemDto);
     }
 
     private CartItemDto GetCartItem(int id)

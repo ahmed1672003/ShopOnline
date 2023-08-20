@@ -39,9 +39,9 @@ public class CartItemService : ICartItemService
             return default(CartItemDto);
         }
     }
-    public async Task<IEnumerable<CartItemDto>> GetUserItemsAsync(int userId)
+    public async Task<List<CartItemDto>> GetUserItemsAsync(int userId)
     {
-        var response = new Response<IEnumerable<CartItemDto>>();
+        var response = new Response<List<CartItemDto>>();
         try
         {
             var result = await _httpClient.GetAsync($"{Urls.CartItems.GetUserItemsUrl}{userId}");
@@ -49,15 +49,15 @@ public class CartItemService : ICartItemService
             if (!result.IsSuccessStatusCode)
                 throw new Exception(await result.Content.ReadAsStringAsync());
 
-            response = await result.Content.ReadFromJsonAsync<Response<IEnumerable<CartItemDto>>>();
+            response = await result.Content.ReadFromJsonAsync<Response<List<CartItemDto>>>();
             if (response.IsSucceeded && response.Data is not null)
                 return response.Data;
 
-            return new HashSet<CartItemDto>();
+            return new List<CartItemDto>();
         }
         catch
         {
-            return Enumerable.Empty<CartItemDto>();
+            return null;
         }
     }
     public async Task<bool> DeleteCartItemAsync(int id)

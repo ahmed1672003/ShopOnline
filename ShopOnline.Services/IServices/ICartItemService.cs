@@ -7,6 +7,6 @@ public interface ICartItemService
 
     Task<CartItemDto> UpdateCartItemQtyAsync(int id, CartItemQtyUpdateDto dto);
 
-    Task<IEnumerable<CartItemDto>> GetUserItemsAsync(int userId);
+    Task<List<CartItemDto>> GetUserItemsAsync(int userId);
     Task<bool> DeleteCartItemAsync(int id);
 }
