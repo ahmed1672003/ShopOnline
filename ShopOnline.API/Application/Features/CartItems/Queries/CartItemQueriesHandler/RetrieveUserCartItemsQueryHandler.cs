@@ -50,6 +50,7 @@ public sealed class RetrieveUserCartItemsQueryHandler :
                 return ResponseHandler.NotFound<IEnumerable<CartItemDto>>(message: "cart do not have items");
 
             var dtos = _mapper.Map<IEnumerable<CartItemDto>>(cart.CartItems);
+
             return ResponseHandler.Success(dtos);
         }
         catch

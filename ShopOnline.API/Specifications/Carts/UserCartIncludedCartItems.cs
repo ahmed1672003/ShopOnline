@@ -4,6 +4,7 @@ public sealed class UserCartIncludedCartItems<TEntity> : Specification<TEntity> 
 {
     public UserCartIncludedCartItems(int userId) : base(c => c.UserId == userId)
     {
-        AddIncludeExpression(c => c.CartItems);
+        //AddIncludeExpression(c => c.CartItems);
+        AddIncludeString($"{nameof(Cart.CartItems)}.{nameof(CartItem.Product)}");
     }
 }
