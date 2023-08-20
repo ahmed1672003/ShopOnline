@@ -1,0 +1,31 @@
+﻿@using ShopOnline.Services.IServices;
+
+<a href="ShoppingCart" class="btn btn-info">
+    <i class="oi oi-cart"></i>&nbsp;Cart
+    <span class="badge bg-dark">@shoppingCartItemCount</span>
+</a>
+
+@code {
+
+    [Inject]
+    public IUnitOfServices Services { get; set; }
+
+    private int shoppingCartItemCount { get; set; } = 0;
+    protected override void OnInitialized()
+    {
+        Services.CartItems.OnShoppingCartChanged += ShoppingCartChanged;
+    }
+
+    private void ShoppingCartChanged(int totalQty)
+    {
+        shoppingCartItemCount = totalQty;
+
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        Services.CartItems.OnShoppingCartChanged -= ShoppingCartChanged;
+    }
+
+}

@@ -9,4 +9,7 @@ public interface ICartItemService
 
     Task<List<CartItemDto>> GetUserItemsAsync(int userId);
     Task<bool> DeleteCartItemAsync(int id);
+
+    event Action<int> OnShoppingCartChanged;
+    void RaisEventOnShoppingCartChanged(int totalQty);
 }

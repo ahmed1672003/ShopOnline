@@ -32,7 +32,7 @@ public partial class ShoppingCart
         try
         {
             CartItems = await Services.CartItems.GetUserItemsAsync(HardCoded.UserId);
-            CalculateCartSummar();
+            CartChanged();
         }
         catch (Exception ex)
         {
@@ -50,7 +50,7 @@ public partial class ShoppingCart
                 NavigationManager.NavigateTo("/NotFound");
 
             RemoveCartItem(cartItemId);
-            CalculateCartSummar();
+            CartChanged();
         }
         catch
         {
@@ -68,7 +68,7 @@ public partial class ShoppingCart
                 CartItemId = itemId
             });
             UpdateItemTotalPrice(returnedUpdatedItem);
-            CalculateCartSummar();
+            CartChanged();
             await MakeUpdateQtyButtonVisible(itemId, false);
 
         }
@@ -83,10 +83,12 @@ public partial class ShoppingCart
             }
         }
     }
+
     protected async Task UpdateCartItemQty_Input(int itemId)
     {
         await MakeUpdateQtyButtonVisible(itemId, true);
     }
+
 
     private async Task MakeUpdateQtyButtonVisible(int cartItemId, bool visible)
     {
@@ -104,7 +106,7 @@ public partial class ShoppingCart
         return CartItems.FirstOrDefault(i => i.Id == id);
     }
 
-    private void CalculateCartSummar()
+    private void CalculateCartSummaryTotals()
     {
         SetTotalPrice();
         SetTotalQty();
@@ -127,5 +129,11 @@ public partial class ShoppingCart
         {
             item.TotalPrice = dto.Price * dto.Qty;
         }
+    }
+
+    private void CartChanged()
+    {
+        CalculateCartSummaryTotals();
+        Services.CartItems.RaisEventOnShoppingCartChanged(TotalQty);
     }
 }

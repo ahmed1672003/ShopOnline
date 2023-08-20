@@ -12,6 +12,8 @@ public class CartItemService : ICartItemService
 {
     private readonly HttpClient _httpClient;
 
+    public event Action<int> OnShoppingCartChanged;
+
     public CartItemService(HttpClient httpClient)
     {
         _httpClient = httpClient;
@@ -110,5 +112,11 @@ public class CartItemService : ICartItemService
 
             return null;
         }
+    }
+    public void RaisEventOnShoppingCartChanged(int totalQty)
+    {
+        if (OnShoppingCartChanged is not null)
+            OnShoppingCartChanged(totalQty);
+
     }
 }
