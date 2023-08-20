@@ -45,15 +45,15 @@ public sealed class CreateCartItemCommandHandler :
             var cartItemByIdIncludedProductSpecificatoin = new
              CartItemByIdIncludedProductSpecificatoin<CartItem>(request.Dto.ProductId, request.Dto.CartId);
 
-            var cartItem = await _context.CartItems.RetriveWithSpecificationAsync(cartItemByIdIncludedProductSpecificatoin);
+            var cartItem = await _context.CartItems.RetriveWithSpecificationAsync(cartItemByIdIncludedProductSpecificatoin, cancellationToken);
+
 
             cartItem.Qty = request.Dto.Qty;
 
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
             var dto = _mapper.Map<CartItemDto>(cartItem);
             return ResponseHandler.Success(dto);
         }
-
         // map from dto to model
         var model = _mapper.Map<CartItem>(request.Dto);
 
@@ -63,8 +63,8 @@ public sealed class CreateCartItemCommandHandler :
         {
             // create new CartItem
             await _context.CartItems.CreateAsync(model);
-            await _context.SaveChangesAsync();
-            await transaction.CommitAsync();
+            await _context.SaveChangesAsync(cancellationToken);
+            await transaction.CommitAsync(cancellationToken);
 
             var cartItemByIdIncludedProductSpecificatoin = new
                  CartItemByIdIncludedProductSpecificatoin<CartItem>(request.Dto.ProductId, request.Dto.CartId);

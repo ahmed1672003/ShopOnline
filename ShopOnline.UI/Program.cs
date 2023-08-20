@@ -13,6 +13,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 #region Add Services
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(Urls.baseUrl) });
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ICartItemService, CartItemService>();
 builder.Services.AddScoped<IUnitOfServices, UnitOfServices>();
 #endregion
 

@@ -3,10 +3,10 @@
 namespace ShopOnline.Services.IServices;
 public interface ICartItemService
 {
-    Task<CartItemDto> AddCartItem(CartItemToAddDto dto);
+    Task<CartItemDto> AddCartItemAsync(CartItemToAddDto dto);
 
-    Task<bool> UpdateCartItemQty(int id, CartItemQtyUpdateDto dto);
+    Task<CartItemDto> UpdateCartItemQtyAsync(int id, CartItemQtyUpdateDto dto);
 
-    Task<IEnumerable<CartItemDto>> GetUserItems(int userId);
-    Task<CartItemDto> DeleteCartItem(int id);
+    Task<IEnumerable<CartItemDto>> GetUserItemsAsync(int userId);
+    Task<bool> DeleteCartItemAsync(int id);
 }

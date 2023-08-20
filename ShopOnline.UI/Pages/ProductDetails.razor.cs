@@ -5,7 +5,7 @@ using ShopOnline.Services.IServices;
 
 namespace ShopOnline.UI.Pages;
 
-public class ProductDetailsBase : ComponentBase
+public partial class ProductDetails : ComponentBase
 {
     [Parameter]
     public int Id { get; set; }
@@ -27,5 +27,20 @@ public class ProductDetailsBase : ComponentBase
         {
             ErrorMessage = ex.Message;
         }
+    }
+
+
+    protected async Task AddProductToCart_Click(CartItemToAddDto dto)
+    {
+        try
+        {
+            var result = await Serveices.CartItems.AddCartItemAsync(dto);
+
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+
     }
 }

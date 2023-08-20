@@ -4,7 +4,7 @@ using ShopOnline.Models.Product;
 
 namespace ShopOnline.UI.Pages;
 
-public class DisplayProductsBase : ComponentBase
+public partial class DisplayProducts : ComponentBase
 {
     [Parameter]
     public IEnumerable<ProductDto> Products { get; set; }

@@ -15,12 +15,13 @@ public class CartItemService : ICartItemService
         _httpClient = httpClient;
     }
 
-    public async Task<CartItemDto> AddCartItem(CartItemToAddDto dto)
+    public async Task<CartItemDto> AddCartItemAsync(CartItemToAddDto dto)
     {
         var response = new Response<CartItemDto>();
         try
         {
-            var result = await _httpClient.PostAsJsonAsync(Urls.CartItems.AddCartItem, dto);
+            _httpClient.DefaultRequestHeaders.Add("Accept", "application/json");
+            var result = await _httpClient.PostAsJsonAsync(Urls.CartItems.AddCartItemUrl, dto);
 
             if (!result.IsSuccessStatusCode)
                 throw new Exception(await result.Content.ReadAsStringAsync());
@@ -38,12 +39,12 @@ public class CartItemService : ICartItemService
             return default(CartItemDto);
         }
     }
-    public async Task<IEnumerable<CartItemDto>> GetUserItems(int userId)
+    public async Task<IEnumerable<CartItemDto>> GetUserItemsAsync(int userId)
     {
         var response = new Response<IEnumerable<CartItemDto>>();
         try
         {
-            var result = await _httpClient.GetAsync($"{Urls.CartItems.GetUserItems}{userId}");
+            var result = await _httpClient.GetAsync($"{Urls.CartItems.GetUserItemsUrl}{userId}");
 
             if (!result.IsSuccessStatusCode)
                 throw new Exception(await result.Content.ReadAsStringAsync());
@@ -59,12 +60,12 @@ public class CartItemService : ICartItemService
             return Enumerable.Empty<CartItemDto>();
         }
     }
-    public async Task<bool> DeleteCartItem(int id)
+    public async Task<bool> DeleteCartItemAsync(int id)
     {
         var response = new Response<CartItemDto>();
         try
         {
-            var result = await _httpClient.DeleteAsync($"{Urls.CartItems.DeleteCartItem}{id}");
+            var result = await _httpClient.DeleteAsync($"{Urls.CartItems.DeleteCartItemUrl}{id}");
 
             if (!result.IsSuccessStatusCode)
                 throw new Exception(await result.Content.ReadAsStringAsync());
@@ -72,7 +73,9 @@ public class CartItemService : ICartItemService
             response = await result.Content.ReadFromJsonAsync<Response<CartItemDto>>();
 
             if (response.IsSucceeded)
+                return true;
 
+            return false;
 
         }
         catch (Exception)
@@ -80,7 +83,7 @@ public class CartItemService : ICartItemService
             return default;
         }
     }
-    public Task<CartItemDto> UpdateCartItemQty(int id, CartItemQtyUpdateDto dto)
+    public Task<CartItemDto> UpdateCartItemQtyAsync(int id, CartItemQtyUpdateDto dto)
     {
         throw new NotImplementedException();
     }

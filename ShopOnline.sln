@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopOnline.UI", "ShopOnline
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopOnline.Models", "ShopOnline.Models\ShopOnline.Models.csproj", "{ED7CBBD2-E99A-4088-8182-D695AB7F20F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopOnline.Services", "ShopOnline.Services\ShopOnline.Services.csproj", "{7CCDA5B0-1ACB-4038-A474-B2E9B2349A9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopOnline.Services", "ShopOnline.Services\ShopOnline.Services.csproj", "{7CCDA5B0-1ACB-4038-A474-B2E9B2349A9E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{DEC5B367-5FC8-4266-88F8-B7B4304E611F}"
 EndProject

@@ -10,9 +10,9 @@ public static class Urls
     }
     public static class CartItems
     {
-        public const string AddCartItem = "CartItems/add-cart-item";
-        public const string UpdateCartItemQty = "CartItems/update-cart-item-qty?id=";
-        public const string GetUserItems = "CartItems/get-user-cart-items?userId=";
-        public const string DeleteCartItem = "CartItems/delete-cart-item-bt-id?id=";
+        public const string AddCartItemUrl = "CartItems/add-cart-item";
+        public const string UpdateCartItemQtyUrl = "CartItems/update-cart-item-qty?id=";
+        public const string GetUserItemsUrl = "CartItems/get-user-cart-items?userId=";
+        public const string DeleteCartItemUrl = "CartItems/delete-cart-item-bt-id?id=";
     }
 }
