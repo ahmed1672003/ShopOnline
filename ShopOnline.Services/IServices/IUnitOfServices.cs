@@ -4,4 +4,5 @@ public interface IUnitOfServices
 {
     IProductService Products { get; }
     ICartItemService CartItems { get; }
+    ICategoryService Categories { get; }
 }

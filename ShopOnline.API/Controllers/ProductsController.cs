@@ -22,4 +22,8 @@ public class ProductsController : ShopOnlineController
         var response = await Mediator.Send(new RetrieveProductByIdQuery(id));
         return NewResult(response);
     }
+
+    [HttpGet, ActionName("get-all-products-by-category-id")]
+    public async Task<IActionResult> RetrieveAllProductsByCategoryId(int categoryId) =>
+        NewResult(await Mediator.Send(new RetrieveAllProductsByCategoryIdQuery(categoryId)));
 }

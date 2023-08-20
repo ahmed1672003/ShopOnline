@@ -38,6 +38,7 @@ public class ProductService : IProductService
         }
     }
 
+
     public async Task<ProductDto> RetrieveProductByIdAsync(int id)
     {
         var response = new Response<ProductDto>();
@@ -57,5 +58,32 @@ public class ProductService : IProductService
 
         return default(ProductDto);
 
+    }
+
+    public async Task<IEnumerable<ProductDto>> RetrieveAllProductsByCategoryId(int categoryId)
+    {
+        var response = new Response<IEnumerable<ProductDto>>();
+
+        try
+        {
+            var result =
+                await _httpClient.GetAsync($"{Urls.Products.RetrieveAllProductsByCategoryIdUrl}{categoryId}");
+
+            if (!result.IsSuccessStatusCode)
+                throw new Exception(await result.Content.ReadAsStringAsync());
+
+            response = await result.Content.ReadFromJsonAsync<Response<IEnumerable<ProductDto>>>();
+
+            if (response.Data is not null)
+                return response.Data;
+
+            return Enumerable.Empty<ProductDto>();
+
+        }
+        catch (Exception)
+        {
+
+            return Enumerable.Empty<ProductDto>();
+        }
     }
 }

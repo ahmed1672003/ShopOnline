@@ -76,7 +76,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
         ISpecification<TEntity> specification = null,
         CancellationToken cancellationToken = default)
     {
-        if (specification.Criteria is null)
+        if (specification is null)
             return await _entities.AnyAsync();
         else
             return await _entities.AnyAsync(specification.Criteria!, cancellationToken);
