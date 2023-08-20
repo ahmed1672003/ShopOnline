@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 using ShopOnline.Services.IServices;
 
@@ -9,7 +10,14 @@ public partial class ShoppingCart
     [Inject]
     public IUnitOfServices Services { get; set; }
 
+    [Inject]
+    public IJSRuntime JS { get; set; }
     public List<CartItemDto> CartItems { get; set; }
+
+    public string TotalPrice { get; set; }
+
+    public int TotalQty { get; set; }
+
 
     //[Parameter]
     //public int UserId { get; set; }
@@ -24,6 +32,7 @@ public partial class ShoppingCart
         try
         {
             CartItems = await Services.CartItems.GetUserItemsAsync(HardCoded.UserId);
+            CalculateCartSummar();
         }
         catch (Exception ex)
         {
@@ -41,11 +50,47 @@ public partial class ShoppingCart
                 NavigationManager.NavigateTo("/NotFound");
 
             RemoveCartItem(cartItemId);
+            CalculateCartSummar();
         }
         catch
         {
             NavigationManager.NavigateTo("/NotFound");
         }
+    }
+
+    protected async Task UpdateQtyCartItem_Click(int itemId, int Qty)
+    {
+        if (Qty > 0)
+        {
+            var returnedUpdatedItem = await Services.CartItems.UpdateCartItemQtyAsync(itemId, new()
+            {
+                Qty = Qty,
+                CartItemId = itemId
+            });
+            UpdateItemTotalPrice(returnedUpdatedItem);
+            CalculateCartSummar();
+            await MakeUpdateQtyButtonVisible(itemId, false);
+
+        }
+        else
+        {
+            var item = CartItems.FirstOrDefault(c => c.Id == itemId);
+
+            if (item != null)
+            {
+                item.Qty = 1;
+                item.TotalPrice = item.Price;
+            }
+        }
+    }
+    protected async Task UpdateCartItemQty_Input(int itemId)
+    {
+        await MakeUpdateQtyButtonVisible(itemId, true);
+    }
+
+    private async Task MakeUpdateQtyButtonVisible(int cartItemId, bool visible)
+    {
+        await JS.InvokeVoidAsync("MakeUpdateQtyButtonVisible", cartItemId, visible);
     }
 
     private void RemoveCartItem(int id)
@@ -54,28 +99,33 @@ public partial class ShoppingCart
 
         CartItems.Remove(cartItemDto);
     }
-
     private CartItemDto GetCartItem(int id)
     {
         return CartItems.FirstOrDefault(i => i.Id == id);
     }
 
-
-
-
-
-
-
-
-
-    protected Task UpdateCartItemQty_Input(int itemId)
+    private void CalculateCartSummar()
     {
-        return Task.CompletedTask;
+        SetTotalPrice();
+        SetTotalQty();
     }
 
-    protected Task UpdateQtyCartItem_Click(int itemId, int Qty)
+    private void SetTotalPrice()
     {
-        return Task.CompletedTask;
+        TotalPrice = CartItems.Sum(ci => ci.TotalPrice).ToString("C");
     }
 
+    private void SetTotalQty()
+    {
+        TotalQty = CartItems.Sum(ci => ci.Qty);
+    }
+    private void UpdateItemTotalPrice(CartItemDto dto)
+    {
+        var item = GetCartItem(dto.Id);
+
+        if (item is not null)
+        {
+            item.TotalPrice = dto.Price * dto.Qty;
+        }
+    }
 }

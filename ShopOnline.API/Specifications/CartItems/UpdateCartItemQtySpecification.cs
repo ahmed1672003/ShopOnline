@@ -5,6 +5,6 @@ public class UpdateCartItemQtySpecification<TEntity> : Specification<TEntity> wh
     public UpdateCartItemQtySpecification(int cartId)
         : base(ci => ci.Id == cartId)
     {
-
+        AddIncludeExpression(ci => ci.Product);
     }
 }

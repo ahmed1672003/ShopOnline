@@ -1,4 +1,6 @@
 ﻿using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 
 using ShopOnline.API.Application.Responses;
 using ShopOnline.Models.CartItem;
@@ -83,8 +85,30 @@ public class CartItemService : ICartItemService
             return default;
         }
     }
-    public Task<CartItemDto> UpdateCartItemQtyAsync(int id, CartItemQtyUpdateDto dto)
+    public async Task<CartItemDto> UpdateCartItemQtyAsync(int id, CartItemQtyUpdateDto dto)
     {
-        throw new NotImplementedException();
+        var respone = new Response<CartItemDto>();
+
+        try
+        {
+            var json = JsonSerializer.Serialize(dto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var result = await _httpClient.PatchAsync($"{Urls.CartItems.UpdateCartItemQtyUrl}{id}", content);
+
+            if (!result.IsSuccessStatusCode)
+                throw new Exception(await result.Content.ReadAsStringAsync());
+
+            respone = await result.Content.ReadFromJsonAsync<Response<CartItemDto>>();
+
+            if (respone.IsSucceeded && respone.Data is not null)
+                return respone.Data;
+
+            return null;
+        }
+        catch
+        {
+
+            return null;
+        }
     }
 }
